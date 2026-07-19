@@ -27,4 +27,7 @@ def make_entities(fake, n):
             "name": name
             "is_company": is_company
         })
+    
+    # pd.DataFrame turns list of dicts (rows) into a table
+    # - each dict becomes row, each key becomes a col
     return pd.DataFrame(rows)
