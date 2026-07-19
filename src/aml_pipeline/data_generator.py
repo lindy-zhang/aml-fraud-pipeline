@@ -10,4 +10,21 @@ CURRENCIES = ["USD", "TWD", "EUR", "JPY"]
 PURPOSE_CODES = ["TRADE_SETTLEMENT", "PAYROLL", "FAMILY_SUPPORT", "SERVICES", "UNSPECIFIED"]
 
 
-
+def make_entities(fake, n):
+    """
+    Creates pool of n fake account holders
+    - Each either person or companies (chose 35% companies)
+    """
+    rows = [] 
+    for i in range(n):
+        # random.random() gives float btwn 0 -> 1
+        # 35% prob. company
+        is_company = random.random() < 0.35
+        # assign fake names
+        name = fake.company() if is_company else fake.name()
+        rows.append({
+            "entity_id": f"ENT{i:05d}" # e.g. ENT00007 — zero-padded so IDs sort nicely
+            "name": name
+            "is_company": is_company
+        })
+    return pd.DataFrame(rows)
